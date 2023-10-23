@@ -4,12 +4,14 @@ import sys
 os.environ["PYGAME_HIDE_SUPPORT_PROMPT"] = "hide"
 import pygame
 from consts import SIZE, BEZEL, BORDER_RADIUS
+from app import Screen
 
 pygame.init()
 window = pygame.display.set_mode((SIZE[0]+BEZEL*2, SIZE[1]+BEZEL*2))
-screen = pygame.Surface(SIZE, flags=pygame.SRCALPHA)
+screen = Screen(SIZE, flags=pygame.SRCALPHA)
 
 running = True
+clock = pygame.time.Clock()
 
 while running:
     for event in pygame.event.get():
@@ -36,9 +38,15 @@ while running:
     window.blit(pygame.transform.rotate(display_rounded, 180), (0, 0))
     window.blit(pygame.transform.rotate(display_rounded, 270), (0, SIZE[1]+2*BEZEL-BORDER_RADIUS))
 
+    # gather input data
+    clock.tick()
+    dt = clock.get_time()/1000
+    keys = pygame.key.get_pressed()
+    mouseClick = pygame.mouse.get_pressed()
+    mousePos = pygame.mouse.get_pos()
 
-
-
+    # update screens
+    screen.update(dt, keys, mouseClick, mousePos)
     pygame.display.update()
 
 pygame.quit()

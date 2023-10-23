@@ -1,0 +1,2 @@
+DARK_GREEN = (69, 208, 13)
+LIGHT_GREEN = (65, 226, 0)
