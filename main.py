@@ -21,7 +21,6 @@ while running:
     # draw actual display screen and put iPhone outline on it
     # fill screens
     window.fill((58, 201, 236))
-    screen.fill((60, 60, 60))
 
     # create basis phone chassis
     pygame.draw.rect(window, (0, 0, 0), pygame.Rect(0, 0, SIZE[0]+2*BEZEL, SIZE[1]+2*BEZEL), border_radius=BORDER_RADIUS)
