@@ -20,4 +20,4 @@ class SubmitButton(Button):
 
     def __unrelease(self):
         self.renderables[0].color = DARK_GREEN
-        self.release_func()
+        self.click_func()

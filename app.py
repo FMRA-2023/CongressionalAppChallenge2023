@@ -3,14 +3,17 @@ import pygame
 from consts import BEZEL
 from render.GuiRenderer import GuiRenderer
 from render.stateManagers.loginState import LoginState
+from render.stateManagers.mapState import MapState
 
 
 class Screen(pygame.Surface):
     LOGIN = 0
+    MAP = 1
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
         self.guiRenderer = GuiRenderer(self)
-        self.states = {self.LOGIN:LoginState(self)}
+        self.states = {self.LOGIN:LoginState(self),
+                       self.MAP:MapState(self)}
 
         self.last_pressed = pygame.key.get_pressed()
         self.last_clicked = pygame.mouse.get_pressed()
