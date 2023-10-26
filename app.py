@@ -1,6 +1,6 @@
 import pygame
 
-from consts import BEZEL
+from consts import BEZEL, SIZE
 from render.GuiRenderer import GuiRenderer
 from render.stateManagers.loginState import LoginState
 from render.stateManagers.mapState import MapState
@@ -29,6 +29,7 @@ class Screen(pygame.Surface):
         mousePos = list(mousePos)
         mousePos[0]-=BEZEL
         mousePos[1]-=BEZEL
+
         self.states[self.__state].during_screen(dt)
         self.guiRenderer.tick(dt, mousePos, mouseClick, self.last_clicked, keysPressed, self.last_pressed)
         self.last_pressed = keysPressed

@@ -38,7 +38,7 @@ while running:
     window.blit(pygame.transform.rotate(display_rounded, 270), (0, SIZE[1]+2*BEZEL-BORDER_RADIUS))
 
     # gather input data
-    clock.tick()
+    clock.tick(60)
     dt = clock.get_time()/1000
     keys = pygame.key.get_pressed()
     mouseClick = pygame.mouse.get_pressed()
