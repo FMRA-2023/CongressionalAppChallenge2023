@@ -1,3 +1,4 @@
+from colors import GRAY
 from consts import NOTCH_SIZE, SIZE
 from render.gui.base.font import RobotoSlab
 from render.gui.elements.textElement import TextElement
@@ -28,6 +29,6 @@ class LoginState(StateManager):
         self.screen.setState(self.screen.MAP)
 
     def during_screen(self, dt):
-        self.screen.fill((25, 25, 25))
+        self.screen.fill(GRAY)
         guiRenderer = self.screen.guiRenderer
         guiRenderer.render(self.screen)

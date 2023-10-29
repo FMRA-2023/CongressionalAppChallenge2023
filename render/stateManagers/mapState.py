@@ -1,6 +1,7 @@
 from consts import SIZE
 from render.map import Map
 from render.stateManagers.StateManager import StateManager
+from render.tabGenerator import create_bottom_tab
 
 
 class MapState(StateManager):
@@ -11,6 +12,7 @@ class MapState(StateManager):
         guiRenderer = self.screen.guiRenderer
         guiRenderer.clear_elements()
         guiRenderer.add_element(Map(0, 0, *SIZE))
+        create_bottom_tab(self.screen)
 
     def during_screen(self, dt):
         self.screen.fill((0, 0, 0))

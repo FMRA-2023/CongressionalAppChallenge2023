@@ -10,7 +10,7 @@ import io
 import threading
 
 class Map(Image):
-    LON_DIF = 0.008
+    LON_DIF = 0.01
     LAT_DIF = SIZE[1] / SIZE[0] * LON_DIF
 
     def __init__(self, x, y, w, h):
@@ -47,7 +47,7 @@ class Map(Image):
 
 
     def update_map(self):
-        if self.long+self.LON_DIF*3/4 > self.currentBBox[2] or self.long-self.LON_DIF*3/4 < self.currentBBox[0] \
+        if self.long+self.LON_DIF*5/8 > self.currentBBox[2] or self.long-self.LON_DIF*5/8 < self.currentBBox[0] \
             or self.lat + self.LAT_DIF*3/4 > self.currentBBox[3] or self.lat - self.LAT_DIF*3/4 < self.currentBBox[1]:
             threading.Thread(target=self.request, args=(self.long, self.lat,)).start()
         # threading.Thread(target=self.request, args=(self.long, self.lat,)).start()
