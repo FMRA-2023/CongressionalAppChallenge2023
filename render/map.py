@@ -3,6 +3,7 @@ import math
 import geocoder
 import pygame
 
+import consts
 from consts import SIZE
 from render.gui.elements.image import Image
 import requests
@@ -10,20 +11,22 @@ import io
 import threading
 
 class Map(Image):
-    LON_DIF = 0.01
-    LAT_DIF = SIZE[1] / SIZE[0] * LON_DIF
+    LON_DIF = consts.LON_DIF
+    LAT_DIF = consts.LAT_DIF
 
-    def __init__(self, x, y, w, h):
+    def __init__(self, x, y, w, h, app):
         self.map = pygame.Surface((w, h))
         self.map.fill((255, 255, 255))
         super(Map, self).__init__(x, y, self.map)
-        self.lat, self.long = geocoder.ip("me").latlng
+        self.lat, self.long = app.playerManager.myPlayer.lat, app.playerManager.myPlayer.long
+        print(self.long, self.lat)
         self.currentMap = None
         self.currentBBox = None
         self.retrv = False
         self.request(self.long, self.lat)
         self.update_map()
         self.doubleClickTime = 0
+        self.app = app
 
         self.original = (self.long, self.lat)
         self.dest = (self.long, self.lat)
@@ -66,6 +69,7 @@ class Map(Image):
 
 
     def tick(self, dt, mousePos, mouseClicked, prevClicked, keys, prevKeys):
+        self.long, self.lat = self.app.playerManager.myPlayer.long, self.app.playerManager.myPlayer.lat
         self.update_map()
         if not mouseClicked[0] and prevClicked[0]:
             self.doubleClickTime = 0.5
@@ -82,9 +86,10 @@ class Map(Image):
 
         if self.timeLeft > 0:
             self.timeLeft -= dt
-            self.long = self.original[0] * self.timeLeft + self.dest[0] * (1-self.timeLeft)
-            self.lat = self.original[1] * self.timeLeft + self.dest[1] * (1-self.timeLeft)
+            self.app.playerManager.myPlayer.long = self.original[0] * self.timeLeft + self.dest[0] * (1-self.timeLeft)
+            self.app.playerManager.myPlayer.lat = self.original[1] * self.timeLeft + self.dest[1] * (1-self.timeLeft)
+            self.app.playerManager.myPlayer.dir = math.degrees(math.atan2(self.dest[1]-self.original[1], self.dest[0]-self.original[0]))
 
         else:
             self.timeLeft = 0
-            self.long, self.lat = self.dest
+            self.app.playerManager.myPlayer.long, self.app.playerManager.myPlayer.lat = self.dest

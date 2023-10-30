@@ -11,9 +11,10 @@ class MapState(StateManager):
     def on_change(self):
         guiRenderer = self.screen.guiRenderer
         guiRenderer.clear_elements()
-        guiRenderer.add_element(Map(0, 0, *SIZE))
+        guiRenderer.add_element(Map(0, 0, *SIZE, self.screen), tag="map")
         create_bottom_tab(self.screen)
 
     def during_screen(self, dt):
         self.screen.fill((0, 0, 0))
+        self.screen.playerManager.update_renders(self.screen.guiRenderer)
         self.screen.guiRenderer.render(self.screen)

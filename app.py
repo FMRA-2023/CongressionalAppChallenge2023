@@ -1,6 +1,7 @@
 import pygame
 
 from consts import BEZEL, SIZE
+from game.PlayerManager import PlayerManager
 from game.player import Player
 from render.GuiRenderer import GuiRenderer
 from render.stateManagers.createState import CreateState
@@ -22,16 +23,17 @@ class Screen(pygame.Surface):
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
         self.guiRenderer = GuiRenderer(self)
+        self.playerManager = PlayerManager()
         self.states = {self.LOGIN:LoginState(self),
                        self.MAP:MapState(self),
-                       self.SKIN:SkinState(self, Player(0, 0, 0, "frank liu", {"base":0, "hat":1, "left_hand":3, "right_hand":4})),
+                       self.SKIN:SkinState(self, self.playerManager.myPlayer),
                        self.CREATE:CreateState(self)}
 
         self.last_pressed = pygame.key.get_pressed()
         self.last_clicked = pygame.mouse.get_pressed()
 
         self.__state = -1
-        self.setState(self.CREATE)
+        self.setState(self.MAP)
 
     def setState(self, value):
         self.__state = value

@@ -48,7 +48,7 @@ while running:
 
     # update screens
     screen.update(dt, keys, mouseClick, mousePos)
-    # Player(0, 0, 0, "frank liu", {"base":0, "hat":1, "left_hand":3, "right_hand":4}).render(screen, screen.get_width()/2, screen.get_height()/2)
+    # screen.playerManager.myPlayer.render(screen, screen.get_width()/2, screen.get_height()/2)
 
     pygame.display.update()
 
