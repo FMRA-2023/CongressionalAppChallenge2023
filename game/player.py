@@ -47,3 +47,6 @@ class Player:
         textObj.centerAt(x, y-25)
         textObj.render(screen)
         screen.blit(img, rect)
+
+    def generateDict(self):
+        return {"player_id":self.id, "pos":(self.long, self.lat), "skin":self.skin, "display_name":self.name, "dir":self.dir}

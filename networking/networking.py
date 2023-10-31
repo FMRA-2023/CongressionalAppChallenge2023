@@ -68,6 +68,14 @@ class Networking:
                              }, ticket))
         return ticket
 
+    def update_and_request_player(self, player_data):
+        ticket = str(UUID.uuid4())
+        self.queries.append(({
+                                 "action": "updateAndRequestPlayer",
+                                 "player_data":player_data
+                             }, ticket))
+        return ticket
+
 
 if __name__ == "__main__":
     # Define the event data (modify this data as needed)
