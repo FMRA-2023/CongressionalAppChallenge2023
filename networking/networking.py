@@ -75,22 +75,23 @@ class Networking:
         }, ticket))
         return ticket
     
-    def getCreatedEvents(self, events_num, userID):
+    def getCreatedEvents(self, events_num, username):
         ticket = str(UUID.uuid4())
         self.queries.append(({
             "action" : "get_created_events",
             "event_number" : events_num,
-            "userID" : userID
+            "username" : username
         }, ticket))
         return ticket
 
-    def getRegisteredEvents(self, events_num, username):
+    def getRegisteredEvents(self, events_num, userID):
         ticket = str(UUID.uuid4())
         self.queries.append(({
             "action" : "get_registered_events",
             "event_number" : events_num,
-            "username" : username
-        }))
+            "userID" : userID
+        }), ticket)
+        return ticket
         
     def delete_event(self, event_id):
         ticket = str(UUID.uuid4())
@@ -146,9 +147,9 @@ class Networking:
 if __name__ == "__main__":
     # Define the event data (modify this data as needed)
     event_data = {
-        "name": "Sample Event",
-        "company": "Event Company",
-        "description": "This is a test event",
+        "name": "Create Event",
+        "company": "RohanAnne",
+        "description": "This is a create event",
         "address": "324 AP Even Road",
         "experienceNeeded": "No experience required",
         "minimumAge": 18,
@@ -158,8 +159,8 @@ if __name__ == "__main__":
 
 
     netw = Networking()
-    #ticket0 = netw.create_event(event_data)
-    ticket = netw.get_events_num(2) # netw is Networking object, send query data
+    #ticket0 = netw.getCreatedEvents(5, "RohanAnne")
+    ticket = netw.getCreatedEvents(5, "RohanAnne") # netw is Networking object, send query data
     while ticket not in netw.responses: # wait until response is received
         # do something here like make a loading sign
         pass
