@@ -35,7 +35,7 @@ class Screen(pygame.Surface):
         self.networking = Networking()
         self.states = {self.LOGIN:LoginState(self),
                        self.MAP:MapState(self),
-                       self.SKIN:SkinState(self, self.playerManager.myPlayer),
+                       self.SKIN:SkinState(self),
                        self.CREATE:CreateState(self),
                        self.ACCOUNT:ProfileState(self),
                        self.AVAILABLE:AvailableState(self),
@@ -61,8 +61,7 @@ class Screen(pygame.Surface):
         mousePos[0]-=BEZEL
         mousePos[1]-=BEZEL
 
-        self.states[self.__state].during_screen(dt)
         self.guiRenderer.tick(dt, mousePos, mouseClick, self.last_clicked, keysPressed, self.last_pressed)
-        #self.networking.update()
+        self.states[self.__state].during_screen(dt)
         self.last_pressed = keysPressed
         self.last_clicked = mouseClick

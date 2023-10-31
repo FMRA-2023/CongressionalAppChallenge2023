@@ -49,4 +49,14 @@ class Player:
         screen.blit(img, rect)
 
     def generateDict(self):
-        return {"player_id":self.id, "pos":(self.long, self.lat), "skin":self.skin, "display_name":self.name, "dir":self.dir}
+        return {"player_id":self.id, "pos":(self.long, self.lat), "skin":self.skin, "display_name":self.name, "dir":self.dir, "points":self.points}
+
+    def __repr__(self):
+        return str(self.generateDict())
+
+    def __str__(self):
+        return str(self.generateDict())
+
+    @classmethod
+    def generatePlayer(cls, data):
+        return Player(data["pos"][0], data["pos"][1], data["player_id"], data["username"], data["display_name"], data["skin"], data["points"])

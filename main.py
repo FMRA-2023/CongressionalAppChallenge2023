@@ -52,5 +52,6 @@ while running:
 
     pygame.display.update()
 
+screen.networking.close()
 pygame.quit()
 sys.exit()

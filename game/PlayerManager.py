@@ -10,11 +10,8 @@ from render.gui.PlayerIcon import PlayerIcon
 
 class PlayerManager:
     def __init__(self):
-        self.players = {"frankliu":Player(0, 0, 0, "frankliu", "frank liu", {"base":0, "hat":0, "left_hand":0, "right_hand":0}, 0),
-                        "frankliu2":Player(-75.5138, 40.0362, 1, "frankliu2", "frank liu", {"base":0, "hat":1, "left_hand":3, "right_hand":4}, 0),
-                        "frankliu3":Player(-75.5238, 40.0362, 1, "frankliu3", "frank liu", {"base":0, "hat":1, "left_hand":3, "right_hand":4}, 0)}
-        self.myPlayer = self.players["frankliu"]
-        self.myPlayer.lat, self.myPlayer.long = geocoder.ip("me").latlng
+        self.players = {}
+        self.myPlayer = None
         self.renders = set()
 
         self.nTicket = ""
@@ -31,15 +28,16 @@ class PlayerManager:
             if not guiRenderer.has_element(f"player-{id}"):
                 guiRenderer.add_element(PlayerIcon(id), tag=f"player-{id}")
 
-            renderTo = pygame.Surface((70, 70), flags=pygame.SRCALPHA)
-            self.players[id].render(renderTo, 35, 35)
+            renderTo = pygame.Surface((100, 100), flags=pygame.SRCALPHA)
+            self.players[id].render(renderTo, 50, 50)
             mapObj = guiRenderer.get_element('map')
             x = (self.players[id].long-mapObj.long)*math.cos(math.radians(mapObj.lat))*SIZE[0]/LON_DIF+SIZE[0]/2
             y = -(self.players[id].lat-mapObj.lat)*SIZE[1]/LAT_DIF+SIZE[1]/2
-            guiRenderer.get_element(f"player-{id}").update(x-35, y-35, renderTo)
+            guiRenderer.get_element(f"player-{id}").update(x-50, y-50, renderTo)
 
     def make_request(self, networking):
         self.nTicket = networking.update_and_request_player(self.myPlayer.generateDict())
+        networking.set_user_data(self.myPlayer.id, self.myPlayer.generateDict())
 
     def update_players(self, networking):
         if self.nTicket in networking.responses:
@@ -48,11 +46,19 @@ class PlayerManager:
             myUsername = self.myPlayer.username
             myPoints = self.myPlayer.points
             self.players = {}
-            for key, value in resp.items():
-                self.players[key] = Player(value[1][0], value[1][1], key, "N/A", value[2], value[1], 0)
+            prevPos = (self.myPlayer.long, self.myPlayer.lat)
+            prevDir = self.myPlayer.dir
+            prevSkin = self.myPlayer.skin
+            prevName = self.myPlayer.name
+            for key, value in resp["data"].items():
+                self.players[key] = Player(value[0][0], value[0][1], key, "N/A", value[2], value[1], 0)
             self.myPlayer = self.players[myId]
             self.myPlayer.username = myUsername
             self.myPlayer.myPoints = myPoints
+            self.myPlayer.long, self.myPlayer.lat = prevPos
+            self.myPlayer.dir = prevDir
+            self.myPlayer.skin = prevSkin
+            self.myPlayer.name = prevName
 
             self.make_request(networking)
 

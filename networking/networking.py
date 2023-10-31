@@ -98,6 +98,22 @@ class Networking:
                              }, ticket))
         return ticket
 
+    def retrieve_data(self, username):
+        ticket = str(UUID.uuid4())
+        self.queries.append(({
+                                 "action": "retrieveUserData",
+                                 "username":username
+                             }, ticket))
+        return ticket
+
+    def set_user_data(self, id, data):
+        ticket = str(UUID.uuid4())
+        self.queries.append(({
+                                 "action": "setUserData",
+                                 "player_id":id,
+                                 "data":data
+                             }, ticket))
+        return ticket
 
 if __name__ == "__main__":
     # Define the event data (modify this data as needed)
