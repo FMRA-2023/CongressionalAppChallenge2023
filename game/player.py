@@ -6,7 +6,7 @@ from render.gui.base.text import Text
 
 
 class Player:
-    def __init__(self, long, lat, id, username, name, skin):
+    def __init__(self, long, lat, id, username, name, skin, points):
         self.long = long
         self.lat = lat
         self.id = id
@@ -14,6 +14,7 @@ class Player:
         self.name = name
         self.skin = skin
         self.dir = 0
+        self.points = points
 
     # rotate around a set point (in most cases, center)
     def rotate(self, image, pos, originPos, angle): # Credit to Rabbid76 (https://stackoverflow.com/questions/4183208/how-do-i-rotate-an-image-around-its-center-using-pygame)

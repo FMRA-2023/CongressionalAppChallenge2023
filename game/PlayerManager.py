@@ -10,9 +10,9 @@ from render.gui.PlayerIcon import PlayerIcon
 
 class PlayerManager:
     def __init__(self):
-        self.players = {"frankliu":Player(0, 0, 0, "frankliu", "frank liu", {"base":0, "hat":1, "left_hand":3, "right_hand":4}),
-                        "frankliu2":Player(-75.5138, 40.0362, 1, "frankliu2", "frank liu", {"base":0, "hat":1, "left_hand":3, "right_hand":4}),
-                        "frankliu3":Player(-75.5238, 40.0362, 1, "frankliu2", "frank liu", {"base":0, "hat":1, "left_hand":3, "right_hand":4})}
+        self.players = {"frankliu":Player(0, 0, 0, "frankliu", "frank liu", {"base":0, "hat":1, "left_hand":3, "right_hand":4}, 0),
+                        "frankliu2":Player(-75.5138, 40.0362, 1, "frankliu2", "frank liu", {"base":0, "hat":1, "left_hand":3, "right_hand":4}, 0),
+                        "frankliu3":Player(-75.5238, 40.0362, 1, "frankliu2", "frank liu", {"base":0, "hat":1, "left_hand":3, "right_hand":4}, 0)}
         self.myPlayer = self.players["frankliu"]
         self.myPlayer.lat, self.myPlayer.long = geocoder.ip("me").latlng
         self.renders = set()

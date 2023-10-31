@@ -7,6 +7,7 @@ from render.GuiRenderer import GuiRenderer
 from render.stateManagers.createState import CreateState
 from render.stateManagers.loginState import LoginState
 from render.stateManagers.mapState import MapState
+from render.stateManagers.profileState import ProfileState
 from render.stateManagers.skinState import SkinState
 
 
@@ -27,13 +28,14 @@ class Screen(pygame.Surface):
         self.states = {self.LOGIN:LoginState(self),
                        self.MAP:MapState(self),
                        self.SKIN:SkinState(self, self.playerManager.myPlayer),
-                       self.CREATE:CreateState(self)}
+                       self.CREATE:CreateState(self),
+                       self.ACCOUNT:ProfileState(self)}
 
         self.last_pressed = pygame.key.get_pressed()
         self.last_clicked = pygame.mouse.get_pressed()
 
         self.__state = -1
-        self.setState(self.MAP)
+        self.setState(self.LOGIN)
 
     def setState(self, value):
         self.__state = value
