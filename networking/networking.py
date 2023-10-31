@@ -1,4 +1,6 @@
 import json
+import threading
+
 import websockets
 import asyncio
 import uuid as UUID
@@ -14,6 +16,7 @@ class Networking:
         self.responses = {}
         self.websocket = None
         self.connect()
+        threading.Thread(target=self.update).start()
 
     def connect(self):
         self.websocket = connect("wss://websockets.rohananne.repl.co/events/", ssl_context=ssl.SSLContext(ssl.PROTOCOL_TLS))
@@ -24,15 +27,16 @@ class Networking:
             self.websocket = None
 
     def update(self):
-        if len(self.queries) > 0:
-            self.websocket.send(json.dumps(self.queries[0][0]))
-            res = json.loads(self.websocket.recv())
-            self.responses[self.queries[0][1]] = res
-            self.queries.pop(0)
+        while True:
+            if len(self.queries) > 0:
+                self.websocket.send(json.dumps(self.queries[0][0]))
+                res = json.loads(self.websocket.recv())
+                self.responses[self.queries[0][1]] = res
+                self.queries.pop(0)
 
-        else:
-            self.websocket.send(json.dumps({"action":"ping"}))
-            self.websocket.recv()
+            else:
+                self.websocket.send(json.dumps({"action":"keep"}))
+                self.websocket.recv()
 
 
     def create_event(self, event_data):
@@ -73,6 +77,24 @@ class Networking:
         self.queries.append(({
                                  "action": "updateAndRequestPlayer",
                                  "player_data":player_data
+                             }, ticket))
+        return ticket
+
+    def login(self, username, pw):
+        ticket = str(UUID.uuid4())
+        self.queries.append(({
+                                 "action": "login",
+                                 "username":username,
+                                 "password":pw
+                             }, ticket))
+        return ticket
+
+    def signup(self, username, pw):
+        ticket = str(UUID.uuid4())
+        self.queries.append(({
+                                 "action": "signup",
+                                 "username":username,
+                                 "password":pw
                              }, ticket))
         return ticket
 

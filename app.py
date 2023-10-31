@@ -9,6 +9,7 @@ from render.stateManagers.createState import CreateState
 from render.stateManagers.loginState import LoginState
 from render.stateManagers.mapState import MapState
 from render.stateManagers.profileState import ProfileState
+from render.stateManagers.signupState import SignupState
 from render.stateManagers.skinState import SkinState
 from render.stateManagers.availableState import AvailableState
 from render.stateManagers.createdEventsState import CreatedEventsState
@@ -22,7 +23,7 @@ class Screen(pygame.Surface):
     AVAILABLE = 3
     SIGNED_UP = 4
     CREATED = 5
-    QUESTS = 6
+    SIGNUP = 6
     ACCOUNT = 7
     CREATE = 8
     CREATED_EVENTS = 9
@@ -39,7 +40,8 @@ class Screen(pygame.Surface):
                        self.ACCOUNT:ProfileState(self),
                        self.AVAILABLE:AvailableState(self),
                        self.CREATED_EVENTS:CreatedEventsState(self),
-                       self.SIGNED_UP_EVENTS:RegisteredEventsState(self)}
+                       self.SIGNED_UP_EVENTS:RegisteredEventsState(self),
+                       self.SIGNUP:SignupState(self)}
 
         self.last_pressed = pygame.key.get_pressed()
         self.last_clicked = pygame.mouse.get_pressed()
