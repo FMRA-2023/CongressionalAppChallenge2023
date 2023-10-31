@@ -10,6 +10,9 @@ from render.stateManagers.loginState import LoginState
 from render.stateManagers.mapState import MapState
 from render.stateManagers.profileState import ProfileState
 from render.stateManagers.skinState import SkinState
+from render.stateManagers.availableState import AvailableState
+from render.stateManagers.createdEventsState import CreatedEventsState
+from render.stateManagers.registeredEventsState import RegisteredEventsState
 
 
 class Screen(pygame.Surface):
@@ -22,6 +25,8 @@ class Screen(pygame.Surface):
     QUESTS = 6
     ACCOUNT = 7
     CREATE = 8
+    CREATED_EVENTS = 9
+    SIGNED_UP_EVENTS = 10
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
         self.guiRenderer = GuiRenderer(self)
@@ -31,7 +36,10 @@ class Screen(pygame.Surface):
                        self.MAP:MapState(self),
                        self.SKIN:SkinState(self, self.playerManager.myPlayer),
                        self.CREATE:CreateState(self),
-                       self.ACCOUNT:ProfileState(self)}
+                       self.ACCOUNT:ProfileState(self),
+                       self.AVAILABLE:AvailableState(self),
+                       self.CREATED_EVENTS:CreatedEventsState(self),
+                       self.SIGNED_UP_EVENTS:RegisteredEventsState(self)}
 
         self.last_pressed = pygame.key.get_pressed()
         self.last_clicked = pygame.mouse.get_pressed()
@@ -53,6 +61,6 @@ class Screen(pygame.Surface):
 
         self.states[self.__state].during_screen(dt)
         self.guiRenderer.tick(dt, mousePos, mouseClick, self.last_clicked, keysPressed, self.last_pressed)
-        self.networking.update()
+        #self.networking.update()
         self.last_pressed = keysPressed
         self.last_clicked = mouseClick
