@@ -16,14 +16,18 @@ class EventCard(GuiElement):
         # Create and add renderables
         renderables = []
         # Create background of card
-        background = Renderable(pygame.Rect(x, y, width, height))
-        renderables.append(background, VERY_DARK_GREEN, 0)
+        background = Renderable(pygame.Rect(0, y, SIZE[0], height), VERY_DARK_GREEN, 0)
+        renderables.append(background)
         # Add image to event card
-        renderables.append(Renderable(pygame.transform.scale(loader.load_image("https://preview.redd.it/an871k4o1sn51.png?width=440&format=png&auto=webp&s=85dcd6cb73b8760802e254ee14dfa3c7ab444591"), size=(0.25 * width, 0.25 * height)), (x + 0.125 * width, y + 0.125 * height)))
+        renderables.append(Renderable(pygame.transform.scale(loader.load_image("points"), size=(0.25 * width, 0.25 * height)), (x + 0.125 * width, y + 0.125 * height)))
         #Add event name to event card
-        eventNameObj = Text("Event name: Hi", RobotoSlab.retrieve("regular", 12), (255, 255, 255), (x + 0.5 * width, y + 0.2 * height))
-
-
+        eventNameObj = Text("Event name: " + event.eventName, RobotoSlab.retrieve("regular", 12), (255, 255, 255), (x + 0.5 * width, y + 0.2 * height))
+        companyObj = Text("Company: " + event.company, RobotoSlab.retrieve("regular", 12), (255, 255, 255), (x + 0.5 * width, y + 0.4 * height))
+        addressObj = Text("Address: " + event.address.split(',')[0], RobotoSlab.retrieve("regular", 12), (255, 255, 255), (x + 0.5 * width, y + 0.6 * height))
+        ageObj = Text("Ages: " + str(event.minimumAge) + "-" + str(event.maximumAge), RobotoSlab.retrieve("regular", 12), (255, 255, 255), (x + 0.5 * width, y + 0.8 * height))
+        textObjs = [eventNameObj, companyObj, addressObj, ageObj]
+        for obj in textObjs:
+            renderables.append(Renderable(obj))
         super(EventCard, self).__init__(x, y, renderables)
         self.width = width
         self.height = height
