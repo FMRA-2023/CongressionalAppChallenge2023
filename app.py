@@ -3,6 +3,7 @@ import pygame
 from consts import BEZEL, SIZE
 from game.PlayerManager import PlayerManager
 from game.player import Player
+from networking.networking import Networking
 from render.GuiRenderer import GuiRenderer
 from render.stateManagers.createState import CreateState
 from render.stateManagers.loginState import LoginState
@@ -25,6 +26,7 @@ class Screen(pygame.Surface):
         super().__init__(*args, **kwargs)
         self.guiRenderer = GuiRenderer(self)
         self.playerManager = PlayerManager()
+        self.networking = Networking()
         self.states = {self.LOGIN:LoginState(self),
                        self.MAP:MapState(self),
                        self.SKIN:SkinState(self, self.playerManager.myPlayer),
@@ -51,5 +53,6 @@ class Screen(pygame.Surface):
 
         self.states[self.__state].during_screen(dt)
         self.guiRenderer.tick(dt, mousePos, mouseClick, self.last_clicked, keysPressed, self.last_pressed)
+        self.networking.update()
         self.last_pressed = keysPressed
         self.last_clicked = mouseClick
