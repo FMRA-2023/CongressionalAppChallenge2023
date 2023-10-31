@@ -2,6 +2,7 @@ import pygame
 
 from consts import BEZEL, SIZE
 from game.PlayerManager import PlayerManager
+from game.VolunteerManager import VolunteerManager
 from game.player import Player
 from networking.networking import Networking
 from render.GuiRenderer import GuiRenderer
@@ -21,8 +22,7 @@ class Screen(pygame.Surface):
     MAP = 1
     SKIN = 2
     AVAILABLE = 3
-    SIGNED_UP = 4
-    CREATED = 5
+    DETAILS = 4
     SIGNUP = 6
     ACCOUNT = 7
     CREATE = 8
@@ -32,6 +32,7 @@ class Screen(pygame.Surface):
         super().__init__(*args, **kwargs)
         self.guiRenderer = GuiRenderer(self)
         self.playerManager = PlayerManager()
+        self.volunteerManager = VolunteerManager()
         self.networking = Networking()
         self.states = {self.LOGIN:LoginState(self),
                        self.MAP:MapState(self),

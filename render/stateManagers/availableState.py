@@ -12,14 +12,14 @@ class AvailableState(StateManager):
     
     def __init__(self, screen):
         super().__init__(screen)
-        netw = Networking()
-        ticket = netw.get_events_num(5) # netw is Networking object, send query data
+        self.numEvents = 5
+    def on_change(self):
+        netw = self.screen.networking
+        ticket = netw.get_events_num(self.numEvents) # netw is Networking object, send query data
         while ticket not in netw.responses: # wait until response is received
-        # do something here like make a loading sign
+            # do something here like make a loading sign
             pass
         self.events = netw.responses[ticket]['data'] # retrieve data
-        self.numEvents = len(self.events)
-    def on_change(self):
         guiRenderer = self.screen.guiRenderer
         guiRenderer.clear_elements()
         guiRenderer.add_element(TextElement(10, NOTCH_SIZE + 15, "Volunteer Events", RobotoSlab.retrieve("bold", 30), (255, 255, 255)), tag="listTitle")

@@ -61,8 +61,9 @@ class LoginState(StateManager):
                     playerData = self.screen.networking.responses[self.ticket]["data"]
                     self.screen.playerManager.players[playerData["player_id"]] = Player.generatePlayer(playerData)
                     self.screen.playerManager.myPlayer = self.screen.playerManager.players[playerData["player_id"]]
-                    self.screen.playerManager.myPlayer.lat, self.screen.playerManager.myPlayer.long = geocoder.ip("me").latlng
+                    self.screen.playerManager.myPlayer.lat, self.screen.playerManager.myPlayer.long = (40.08391, -75.42271) #geocoder.ip("me").latlng
                     self.screen.playerManager.make_request(self.screen.networking)
+                    self.screen.volunteerManager.make_request(self.screen.networking)
                     self.screen.setState(self.screen.MAP)
 
                 self.retrieving = False

@@ -16,7 +16,7 @@ class Networking:
         self.responses = {}
         self.websocket = None
         self.connect()
-        threading.Thread(target=self.update).start()
+        threading.Thread(target=self.update, daemon=True).start()
 
     def connect(self):
         self.websocket = connect("wss://websockets.rohananne.repl.co/events/", ssl_context=ssl.SSLContext(ssl.PROTOCOL_TLS))
@@ -28,15 +28,16 @@ class Networking:
 
     def update(self):
         while True:
-            if len(self.queries) > 0:
-                self.websocket.send(json.dumps(self.queries[0][0]))
-                res = json.loads(self.websocket.recv())
-                self.responses[self.queries[0][1]] = res
-                self.queries.pop(0)
+            if self.websocket is not None:
+                if len(self.queries) > 0:
+                    self.websocket.send(json.dumps(self.queries[0][0]))
+                    res = json.loads(self.websocket.recv())
+                    self.responses[self.queries[0][1]] = res
+                    self.queries.pop(0)
 
-            else:
-                self.websocket.send(json.dumps({"action":"keep"}))
-                self.websocket.recv()
+                else:
+                    self.websocket.send(json.dumps({"action":"keep"}))
+                    self.websocket.recv()
 
 
     def create_event(self, event_data):

@@ -18,4 +18,6 @@ class MapState(StateManager):
         self.screen.fill((0, 0, 0))
         self.screen.playerManager.update_players(self.screen.networking)
         self.screen.playerManager.update_renders(self.screen.guiRenderer)
+        self.screen.volunteerManager.updateVolunteers(self.screen.networking)
+        self.screen.volunteerManager.updateRender(self.screen)
         self.screen.guiRenderer.render(self.screen)
