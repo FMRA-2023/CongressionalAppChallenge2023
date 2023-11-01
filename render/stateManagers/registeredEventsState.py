@@ -14,7 +14,7 @@ class RegisteredEventsState(StateManager):
     
     def on_change(self):
         netw = Networking()
-        ticket = netw.getRegisteredEvents(5, "6541730a15f4babb040385ba") # netw is Networking object, send query data
+        ticket = netw.getRegisteredEvents(5, self.screen.playerManager.myPlayer.id) # netw is Networking object, send query data
         while ticket not in netw.responses: # wait until response is received
         # do something here like make a loading sign
             pass
@@ -23,7 +23,7 @@ class RegisteredEventsState(StateManager):
 
         guiRenderer = self.screen.guiRenderer
         guiRenderer.clear_elements()
-        guiRenderer.add_element(TextElement(10, NOTCH_SIZE + 15, "Registered Events", RobotoSlab.retrieve("bold", 25), (255, 255, 255)), tag="registeredTitle")
+        guiRenderer.add_element(TextElement(10, NOTCH_SIZE + 25, "Registered Events", RobotoSlab.retrieve("bold", 25), (255, 255, 255)), tag="registeredTitle")
 
         for i in range(self.numEvents):
             unFormattedEvent = self.events[i]

@@ -36,6 +36,7 @@ class PlayerManager:
             guiRenderer.get_element(f"player-{id}").update(x-50, y-50, renderTo)
 
     def make_request(self, networking):
+        print(self.myPlayer.generateDict())
         self.nTicket = networking.update_and_request_player(self.myPlayer.generateDict())
         networking.set_user_data(self.myPlayer.id, self.myPlayer.generateDict())
 
@@ -54,7 +55,7 @@ class PlayerManager:
                 self.players[key] = Player(value[0][0], value[0][1], key, "N/A", value[2], value[1], 0)
             self.myPlayer = self.players[myId]
             self.myPlayer.username = myUsername
-            self.myPlayer.myPoints = myPoints
+            self.myPlayer.points = myPoints
             self.myPlayer.long, self.myPlayer.lat = prevPos
             self.myPlayer.dir = prevDir
             self.myPlayer.skin = prevSkin

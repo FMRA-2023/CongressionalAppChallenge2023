@@ -39,7 +39,7 @@ class LoginState(StateManager):
         if guiRenderer.has_element("warning"):
             guiRenderer.remove_element("warning")
         self.loggingIn = True
-        guiRenderer.add_element(LoadingSign(SIZE[0]/2, NOTCH_SIZE+350, 100), tag="loading")
+        guiRenderer.add_element(LoadingSign(SIZE[0]/2, NOTCH_SIZE+305, 35), tag="loading")
         self.ticket = self.screen.networking.login(guiRenderer.get_element("usernameInput").text, guiRenderer.get_element("passwordInput").text)
         # self.screen.setState(self.screen.MAP)
 
@@ -63,7 +63,7 @@ class LoginState(StateManager):
                     playerData = self.screen.networking.responses[self.ticket]["data"]
                     self.screen.playerManager.players[playerData["player_id"]] = Player.generatePlayer(playerData)
                     self.screen.playerManager.myPlayer = self.screen.playerManager.players[playerData["player_id"]]
-                    self.screen.playerManager.myPlayer.lat, self.screen.playerManager.myPlayer.long = (40.08391, -75.42271) #geocoder.ip("me").latlng
+                    self.screen.playerManager.myPlayer.lat, self.screen.playerManager.myPlayer.long = (40.04752, -75.45289) #geocoder.ip("me").latlng
                     self.screen.playerManager.make_request(self.screen.networking)
                     self.screen.volunteerManager.make_request(self.screen.networking)
                     self.screen.setState(self.screen.MAP)

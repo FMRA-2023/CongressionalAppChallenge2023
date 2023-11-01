@@ -35,7 +35,7 @@ class SignupState(StateManager):
         if guiRenderer.has_element("warning"):
             guiRenderer.remove_element("warning")
         self.signingUp = True
-        guiRenderer.add_element(LoadingSign(SIZE[0]/2, NOTCH_SIZE+350, 100), tag="loading")
+        guiRenderer.add_element(LoadingSign(SIZE[0]/2, NOTCH_SIZE+305, 35), tag="loading")
         self.ticket = self.screen.networking.signup(guiRenderer.get_element("usernameInput").text, guiRenderer.get_element("passwordInput").text)
         # self.screen.setState(self.screen.MAP)
 

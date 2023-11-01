@@ -1,5 +1,8 @@
 import pygame
 import itertools
+
+import pyperclip
+
 from render.gui.base.element import GuiElement
 from render.gui.base.renderable import Renderable
 from render.gui.base.text import Text
@@ -93,6 +96,13 @@ class TextInput(GuiElement):
                 self.cursor += 1
                 self.cursorDelay = 0
                 self.cursorFlash = True
+
+            if keys[pygame.K_LSUPER] or keys[pygame.K_RSUPER]:
+                if keyP(pygame.K_v):
+                    self.text = pyperclip.paste()
+                    self.cursor = len(self.text)
+                    self.cursorDelay = 0
+                    self.cursorFlash = True
 
             if self.cursorDelay > 0.5:
                 self.cursorDelay = 0

@@ -1,4 +1,7 @@
+import io
+
 import pygame
+import requests
 
 import loader
 from colors import VERY_DARK_GREEN
@@ -19,12 +22,12 @@ class EventCard(GuiElement):
         background = Renderable(pygame.Rect(0, y, SIZE[0], height), VERY_DARK_GREEN, 0)
         renderables.append(background)
         # Add image to event card
-        renderables.append(Renderable(pygame.transform.scale(loader.load_image("points"), size=(0.25 * width, 0.25 * height)), (x + 0.125 * width, y + 0.125 * height)))
+        renderables.append(Renderable(pygame.transform.scale(pygame.image.load(io.BytesIO(requests.get(event.featuredImage).content)), size=(0.37*width, 0.37*width)), (x + 0.12 * width, y + 0.125 * height)))
         #Add event name to event card
-        eventNameObj = Text("Event name: " + event.eventName, RobotoSlab.retrieve("regular", 12), (255, 255, 255), (x + 0.5 * width, y + 0.2 * height))
-        companyObj = Text("Company: " + event.company, RobotoSlab.retrieve("regular", 12), (255, 255, 255), (x + 0.5 * width, y + 0.4 * height))
-        addressObj = Text("Address: " + event.address.split(',')[0], RobotoSlab.retrieve("regular", 12), (255, 255, 255), (x + 0.5 * width, y + 0.6 * height))
-        ageObj = Text("Ages: " + str(event.minimumAge) + "-" + str(event.maximumAge), RobotoSlab.retrieve("regular", 12), (255, 255, 255), (x + 0.5 * width, y + 0.8 * height))
+        eventNameObj = Text("Event name: " + event.eventName, RobotoSlab.retrieve("regular", 12), (255, 255, 255), (x + 0.5 * width, y + 0.15 * height))
+        companyObj = Text("Company: " + event.company, RobotoSlab.retrieve("regular", 12), (255, 255, 255), (x + 0.5 * width, y + 0.35 * height))
+        addressObj = Text("Address: " + event.address.split(',')[0], RobotoSlab.retrieve("regular", 12), (255, 255, 255), (x + 0.5 * width, y + 0.55 * height))
+        ageObj = Text("Ages: " + str(event.minimumAge) + "-" + str(event.maximumAge), RobotoSlab.retrieve("regular", 12), (255, 255, 255), (x + 0.5 * width, y + 0.75 * height))
         textObjs = [eventNameObj, companyObj, addressObj, ageObj]
         for obj in textObjs:
             renderables.append(Renderable(obj))

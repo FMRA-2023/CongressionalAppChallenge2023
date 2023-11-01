@@ -19,7 +19,6 @@ class Map(Image):
         self.map.fill((255, 255, 255))
         super(Map, self).__init__(x, y, self.map)
         self.lat, self.long = app.playerManager.myPlayer.lat, app.playerManager.myPlayer.long
-        print(self.long, self.lat)
         self.currentMap = None
         self.currentBBox = None
         self.retrv = False
@@ -53,12 +52,9 @@ class Map(Image):
         if self.long+self.LON_DIF*5/8 > self.currentBBox[2] or self.long-self.LON_DIF*5/8 < self.currentBBox[0] \
             or self.lat + self.LAT_DIF*3/4 > self.currentBBox[3] or self.lat - self.LAT_DIF*3/4 < self.currentBBox[1]:
             threading.Thread(target=self.request, args=(self.long, self.lat,)).start()
-        # threading.Thread(target=self.request, args=(self.long, self.lat,)).start()
         self.map.fill((255, 255, 255))
         self.map.blit(self.currentMap, ((self.currentBBox[0]-self.long)*math.cos(math.radians(self.lat))*SIZE[0]/self.LON_DIF+SIZE[0]/2,
                                         -(self.currentBBox[1]-self.lat)*SIZE[1]/self.LAT_DIF-3*SIZE[1]/2))
-        # self.map.blit(self.currentMap, (-SIZE[0]/2, -SIZE[1]/2))
-        #print(self.long, self.lat)
         pygame.draw.circle(self.map, (255, 0, 0), (SIZE[0]/2, SIZE[1]/2), 5)
 
     def disp_to_geo(self, x, y):

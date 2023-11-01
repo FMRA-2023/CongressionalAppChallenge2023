@@ -22,7 +22,7 @@ class AvailableState(StateManager):
         self.events = netw.responses[ticket]['data'] # retrieve data
         guiRenderer = self.screen.guiRenderer
         guiRenderer.clear_elements()
-        guiRenderer.add_element(TextElement(10, NOTCH_SIZE + 15, "Volunteer Events", RobotoSlab.retrieve("bold", 30), (255, 255, 255)), tag="listTitle")
+        guiRenderer.add_element(TextElement(10, NOTCH_SIZE + 25, "Volunteer Events", RobotoSlab.retrieve("bold", 30), (255, 255, 255)), tag="listTitle")
 
 
 

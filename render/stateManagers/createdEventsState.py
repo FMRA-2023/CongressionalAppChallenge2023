@@ -24,7 +24,7 @@ class CreatedEventsState(StateManager):
 
         guiRenderer = self.screen.guiRenderer
         guiRenderer.clear_elements()
-        guiRenderer.add_element(TextElement(10, NOTCH_SIZE + 15, "Events Created By You", RobotoSlab.retrieve("bold", 25), (255, 255, 255)), tag="createdTitle")
+        guiRenderer.add_element(TextElement(10, NOTCH_SIZE + 25, "Events Created By You", RobotoSlab.retrieve("bold", 25), (255, 255, 255)), tag="createdTitle")
 
         for i in range(self.numEvents):
             unFormattedEvent = self.events[i]
