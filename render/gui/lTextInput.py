@@ -10,6 +10,7 @@ class LongTextInput(TextInput):
     def __init__(self, x, y, maxWidth, maxLen=None):
         super().__init__(x, y, Text("", RobotoSlab.retrieve("light", 12), (0, 0, 0), (x, y)), maxLen=maxLen)
         self.maxWidth = maxWidth
+        self.renderText = None
     
     def tick(self, dt, mousePos, mouseClicked, prevClicked, keys, prevKeys):
         super().tick(dt, mousePos, mouseClicked, prevClicked, keys, prevKeys)
@@ -50,6 +51,7 @@ class LongTextInput(TextInput):
                 spacedText = f"{spacedText} {word}"
 
         renderText = spacedText.lstrip()
+        self.renderText = renderText
         self.textObj.set_text(renderText)
 
         lines = renderText[:self.cursor].count("\n")+1

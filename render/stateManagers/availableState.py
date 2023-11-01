@@ -27,7 +27,7 @@ class AvailableState(StateManager):
 
 
 
-        for i in range(self.numEvents):
+        for i in range(len(self.events)):
             unFormattedEvent = self.events[i]
             event = VolunteerEvent(unFormattedEvent['Name'], unFormattedEvent['Company'], unFormattedEvent['Description'], unFormattedEvent['Full Address'], unFormattedEvent['Experience Needed'], unFormattedEvent['Minimum Age'], unFormattedEvent['Maximum Age'], unFormattedEvent['Featured Image'])
             availableHeight = SIZE[1] * 0.5

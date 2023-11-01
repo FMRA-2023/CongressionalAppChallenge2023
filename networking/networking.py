@@ -144,6 +144,23 @@ class Networking:
                              }, ticket))
         return ticket
 
+    def signupEvent(self, eventName, id):
+        ticket = str(UUID.uuid4())
+        self.queries.append(({
+                                 "action": "signupEvent",
+                                 "event_name":eventName,
+                                 "user_id":id
+                             }, ticket))
+        return ticket
+
+    def getEventUsers(self, eventName):
+        ticket = str(UUID.uuid4())
+        self.queries.append(({
+                                 "action": "getEventUsers",
+                                 "event_name":eventName
+                             }, ticket))
+        return ticket
+
 if __name__ == "__main__":
     # Define the event data (modify this data as needed)
     event_data = {

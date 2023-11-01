@@ -1,9 +1,11 @@
 import geocoder
 
+import loader
 from colors import GRAY
 from consts import NOTCH_SIZE, SIZE
 from game.player import Player
 from render.gui.base.font import RobotoSlab
+from render.gui.elements.image import Image
 from render.gui.elements.textElement import TextElement
 from render.gui.loadingSign import LoadingSign
 from render.gui.sTextInput import STextInput
@@ -22,7 +24,7 @@ class LoginState(StateManager):
     def on_change(self):
         guiRenderer = self.screen.guiRenderer
         guiRenderer.clear_elements()
-        guiRenderer.add_element(TextElement(10, NOTCH_SIZE+5, "Samaritans", RobotoSlab.retrieve("bold", 50), (255, 255, 255)), tag="title")
+        guiRenderer.add_element(TextElement(10, NOTCH_SIZE+5, "iVolunteer", RobotoSlab.retrieve("bold", 50), (255, 255, 255)), tag="title")
         guiRenderer.add_element(TextElement(10, NOTCH_SIZE+75, "Username", RobotoSlab.retrieve("regular", 18), (255 ,255, 255)), tag="usernameLabel")
         guiRenderer.add_element(STextInput(10, NOTCH_SIZE+100), tag="usernameInput")
         guiRenderer.add_element(
@@ -31,7 +33,7 @@ class LoginState(StateManager):
         guiRenderer.add_element(STextInput(10, NOTCH_SIZE + 165, subchar="*"), tag="passwordInput")
         guiRenderer.add_element(SubmitButton(10, NOTCH_SIZE+210, "Login", self.login), tag="loginButton")
         guiRenderer.add_element(SubmitButton(100, NOTCH_SIZE+210, "...or Sign Up", lambda:self.screen.setState(self.screen.SIGNUP)), tag="loginButton")
-
+        guiRenderer.add_element(Image(SIZE[0]/2-175, SIZE[1]/2-50, loader.load_image("logo", size=(350, 350))))
     def login(self):
         guiRenderer = self.screen.guiRenderer
         if guiRenderer.has_element("warning"):

@@ -7,6 +7,8 @@ from game.player import Player
 from networking.networking import Networking
 from render.GuiRenderer import GuiRenderer
 from render.stateManagers.createState import CreateState
+from render.stateManagers.detailsState import DetailsState
+from render.stateManagers.eventInformationState import EventInformationState
 from render.stateManagers.loginState import LoginState
 from render.stateManagers.mapState import MapState
 from render.stateManagers.profileState import ProfileState
@@ -44,7 +46,8 @@ class Screen(pygame.Surface):
                        self.CREATED_EVENTS:CreatedEventsState(self),
                        self.SIGNED_UP_EVENTS:RegisteredEventsState(self),
                        self.SIGNUP:SignupState(self),
-                       self.MORE_EVENT_INFORMATION:EventInformationState(self)}
+                       self.MORE_EVENT_INFORMATION:EventInformationState(self),
+                       self.DETAILS:DetailsState(self)}
 
         self.last_pressed = pygame.key.get_pressed()
         self.last_clicked = pygame.mouse.get_pressed()

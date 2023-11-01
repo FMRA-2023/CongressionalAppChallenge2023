@@ -68,9 +68,5 @@ class VolunteerEvent():
 
   def JSONString(self):
     return json.dumps(self.returnTable())
-  
-  def sign_up(self, user):
-    user.sign_up_event(self)
-    print(f"{user.username} signed up for {self.eventName}")
-    user.addPoints(10)
+
 

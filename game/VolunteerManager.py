@@ -29,7 +29,7 @@ class VolunteerManager:
         guiRenderer = screen.guiRenderer
         for event in self.events:
             if not guiRenderer.has_element(f"icon-{event.eventName}:{event.company}"):
-                guiRenderer.add_element(EventMarker(0, 0, event.eventName, screen), tag=f"icon-{event.eventName}:{event.company}")
+                guiRenderer.add_element(EventMarker(0, 0, event, screen), tag=f"icon-{event.eventName}:{event.company}")
             mapObj = guiRenderer.get_element('map')
             x = (event.longitude-mapObj.long)*math.cos(math.radians(mapObj.lat))*SIZE[0]/LON_DIF+SIZE[0]/2
             y = -(event.latitude-mapObj.lat)*SIZE[1]/LAT_DIF+SIZE[1]/2

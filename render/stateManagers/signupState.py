@@ -1,6 +1,8 @@
+import loader
 from colors import GRAY
 from consts import NOTCH_SIZE, SIZE
 from render.gui.base.font import RobotoSlab
+from render.gui.elements.image import Image
 from render.gui.elements.textElement import TextElement
 from render.gui.loadingSign import LoadingSign
 from render.gui.sTextInput import STextInput
@@ -17,7 +19,7 @@ class SignupState(StateManager):
     def on_change(self):
         guiRenderer = self.screen.guiRenderer
         guiRenderer.clear_elements()
-        guiRenderer.add_element(TextElement(10, NOTCH_SIZE+5, "Samaritans", RobotoSlab.retrieve("bold", 50), (255, 255, 255)), tag="title")
+        guiRenderer.add_element(TextElement(10, NOTCH_SIZE+5, "iVolunteer", RobotoSlab.retrieve("bold", 50), (255, 255, 255)), tag="title")
         guiRenderer.add_element(TextElement(10, NOTCH_SIZE+75, "Username", RobotoSlab.retrieve("regular", 18), (255 ,255, 255)), tag="usernameLabel")
         guiRenderer.add_element(STextInput(10, NOTCH_SIZE+100), tag="usernameInput")
         guiRenderer.add_element(
@@ -26,6 +28,7 @@ class SignupState(StateManager):
         guiRenderer.add_element(STextInput(10, NOTCH_SIZE + 165), tag="passwordInput")
         guiRenderer.add_element(SubmitButton(10, NOTCH_SIZE+210, "Sign Up", self.signup), tag="signupButton")
         guiRenderer.add_element(SubmitButton(120, NOTCH_SIZE+210, "...or Log In", lambda:self.screen.setState(self.screen.LOGIN)), tag="loginButton")
+        guiRenderer.add_element(Image(SIZE[0]/2-175, SIZE[1]/2-50, loader.load_image("logo", size=(350, 350))))
 
     def signup(self):
         guiRenderer = self.screen.guiRenderer

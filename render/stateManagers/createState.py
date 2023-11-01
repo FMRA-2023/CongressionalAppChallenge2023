@@ -77,7 +77,7 @@ class CreateState(StateManager):
                                                 RobotoSlab.retrieve("regular", 14), (0, 255, 0)), tag="warning")
             self.ticket = self.screen.networking.create_event({"name":guiRenderer.get_element(f"nameInput").text,
                                                  "company":guiRenderer.get_element(f"companyInput").text,
-                                                 "description":guiRenderer.get_element(f"descriptionInput").text,
+                                                 "description":guiRenderer.get_element(f"descriptionInput").renderText,
                                                  "address":guiRenderer.get_element(f"addressInput").text,
                                                  "experienceNeeded":guiRenderer.get_element(f"expInput").text,
                                                  "featuredImage":guiRenderer.get_element(f"linkInput").text,
