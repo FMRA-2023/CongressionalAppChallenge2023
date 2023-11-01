@@ -26,8 +26,13 @@ class GuiElement:
             if renderable.y + renderable.h > maxY:
                 maxY = renderable.y + renderable.h
 
-        self.w = maxX - minX
-        self.h = maxY - minY
+        if len(self.renderables) == 0:
+            self.w = 0
+            self.h = 0
+
+        else:
+            self.w = maxX - minX
+            self.h = maxY - minY
 
     def render(self, screen):
         for object in self.renderables:
