@@ -28,6 +28,7 @@ class Screen(pygame.Surface):
     CREATE = 8
     CREATED_EVENTS = 9
     SIGNED_UP_EVENTS = 10
+    MORE_EVENT_INFORMATION = 11
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
         self.guiRenderer = GuiRenderer(self)
@@ -42,7 +43,8 @@ class Screen(pygame.Surface):
                        self.AVAILABLE:AvailableState(self),
                        self.CREATED_EVENTS:CreatedEventsState(self),
                        self.SIGNED_UP_EVENTS:RegisteredEventsState(self),
-                       self.SIGNUP:SignupState(self)}
+                       self.SIGNUP:SignupState(self),
+                       self.MORE_EVENT_INFORMATION:EventInformationState(self)}
 
         self.last_pressed = pygame.key.get_pressed()
         self.last_clicked = pygame.mouse.get_pressed()

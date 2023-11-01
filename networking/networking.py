@@ -90,7 +90,7 @@ class Networking:
             "action" : "get_registered_events",
             "event_number" : events_num,
             "userID" : userID
-        }), ticket)
+        }, ticket))
         return ticket
         
     def delete_event(self, event_id):
@@ -160,7 +160,7 @@ if __name__ == "__main__":
 
     netw = Networking()
     #ticket0 = netw.getCreatedEvents(5, "RohanAnne")
-    ticket = netw.getCreatedEvents(5, "RohanAnne") # netw is Networking object, send query data
+    ticket = netw.getRegisteredEvents(5, "6541730a15f4babb040385b9") # netw is Networking object, send query data
     while ticket not in netw.responses: # wait until response is received
         # do something here like make a loading sign
         pass
