@@ -36,7 +36,6 @@ class PlayerManager:
             guiRenderer.get_element(f"player-{id}").update(x-50, y-50, renderTo)
 
     def make_request(self, networking):
-        print(self.myPlayer.generateDict())
         self.nTicket = networking.update_and_request_player(self.myPlayer.generateDict())
         networking.set_user_data(self.myPlayer.id, self.myPlayer.generateDict())
 

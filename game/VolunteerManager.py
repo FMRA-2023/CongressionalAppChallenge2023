@@ -1,4 +1,5 @@
 import math
+import time
 
 from consts import SIZE, LON_DIF, LAT_DIF
 from networking.VolunteerEvent import VolunteerEvent
@@ -11,19 +12,22 @@ class VolunteerManager:
         self.names = set()
         self.renders = set()
         self.ticket = ""
+        self.timeSinceLastSent = time.time()-5
 
     def make_request(self, networking):
         self.ticket = networking.get_events_num(100)
+        self.timeSinceLastSent = time.time()
 
     def updateVolunteers(self, networking):
-        if self.ticket in networking.responses:
-            netw = networking
-            events = [VolunteerEvent(unFormattedEvent['Name'], unFormattedEvent['Company'], unFormattedEvent['Description'], unFormattedEvent['Full Address'], unFormattedEvent['Experience Needed'], unFormattedEvent['Minimum Age'], unFormattedEvent['Maximum Age'], unFormattedEvent['Featured Image']) for unFormattedEvent in netw.responses[self.ticket]['data']] # retrieve data
-            for event in events:
-                if event not in self.names:
-                    self.events.append(event)
-                    self.names.add(f"{event.eventName}:{event.company}")
-            self.make_request(networking)
+        if time.time() - self.timeSinceLastSent > 5:
+            if self.ticket in networking.responses.keys():
+                netw = networking
+                events = [VolunteerEvent(unFormattedEvent['Name'], unFormattedEvent['Company'], unFormattedEvent['Description'], unFormattedEvent['Full Address'], unFormattedEvent['Experience Needed'], unFormattedEvent['Minimum Age'], unFormattedEvent['Maximum Age'], unFormattedEvent['Featured Image']) for unFormattedEvent in netw.responses[self.ticket]['data']] # retrieve data
+                for event in events:
+                    if event not in self.names:
+                        self.events.append(event)
+                        self.names.add(f"{event.eventName}:{event.company}")
+                self.make_request(networking)
 
     def updateRender(self, screen):
         guiRenderer = screen.guiRenderer
