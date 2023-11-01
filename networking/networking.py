@@ -164,24 +164,25 @@ class Networking:
 if __name__ == "__main__":
     # Define the event data (modify this data as needed)
     event_data = {
-        "name": "Create Event",
-        "company": "RohanAnne",
-        "description": "This is a create event",
-        "address": "324 AP Even Road",
-        "experienceNeeded": "No experience required",
-        "minimumAge": 18,
-        "maximumAge": 99,
-        "featuredImage": "event_image.jpg"
+        "name": "Library Help",
+        "company": "CCLS",
+        "description": "Help the library in\nencouraging people to read",
+        "address": "720 First Avenue Berwyn PA",
+        "experienceNeeded": "No experience required!",
+        "minimumAge": 12,
+        "maximumAge": 18,
+        "featuredImage": "https://www.tesd.net/cms/lib/PA01001259/Centricity/ModuleInstance/17529/large/01_01____static.jpg"
     }
 
 
     netw = Networking()
-    #ticket0 = netw.getCreatedEvents(5, "RohanAnne")
-    ticket = netw.getRegisteredEvents(5, "6541730a15f4babb040385b9") # netw is Networking object, send query data
-    while ticket not in netw.responses: # wait until response is received
-        # do something here like make a loading sign
-        pass
-    print(netw.responses[ticket]['data']) # retrieve data
+    netw.create_event(event_data)
+    # #ticket0 = netw.getCreatedEvents(5, "RohanAnne")
+    # ticket = netw.getRegisteredEvents(5, "6541730a15f4babb040385b9") # netw is Networking object, send query data
+    # while ticket not in netw.responses: # wait until response is received
+    #     # do something here like make a loading sign
+    #     pass
+    # print(netw.responses[ticket]['data']) # retrieve data
 
 
 

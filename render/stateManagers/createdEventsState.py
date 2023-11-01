@@ -15,7 +15,7 @@ class CreatedEventsState(StateManager):
     
     def on_change(self):
         netw = Networking()
-        ticket = netw.getCreatedEvents(5, "RohanAnne") # netw is Networking object, send query data
+        ticket = netw.getCreatedEvents(5, self.screen.playerManager.myPlayer.username) # netw is Networking object, send query data
         while ticket not in netw.responses: # wait until response is received
         # do something here like make a loading sign
             pass

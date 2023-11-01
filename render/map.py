@@ -1,8 +1,5 @@
 import math
-
-import geocoder
 import pygame
-
 import consts
 from consts import SIZE
 from render.gui.elements.image import Image

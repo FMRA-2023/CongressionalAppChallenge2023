@@ -13,7 +13,7 @@ class VolunteerManager:
         self.ticket = ""
 
     def make_request(self, networking):
-        self.ticket = networking.get_events_num(5)
+        self.ticket = networking.get_events_num(100)
 
     def updateVolunteers(self, networking):
         if self.ticket in networking.responses:
@@ -23,7 +23,7 @@ class VolunteerManager:
                 if event not in self.names:
                     self.events.append(event)
                     self.names.add(f"{event.eventName}:{event.company}")
-            self.ticket = self.make_request(networking)
+            self.make_request(networking)
 
     def updateRender(self, screen):
         guiRenderer = screen.guiRenderer
